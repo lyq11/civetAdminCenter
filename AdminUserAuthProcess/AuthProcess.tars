@@ -1,0 +1,22 @@
+module civetAdminCenter
+{
+	struct AdminAuthDataInfo
+	{
+		0 optional string username;
+		1 optional string password;
+		2 optional string phone;
+		3 optional string wechat;
+		4 optional string verifyCode;
+		5 optional string logintype;
+
+	};
+	interface AuthProcess
+	{
+		int checkToken(string token,out bool result);
+		int refreshToken(string oldtoken,out string newtoken);
+		int login(AdminAuthDataInfo info,out int result,out string token);
+		int logout(string token,out int result);
+		int loginByWechat(AdminAuthDataInfo info,out int result);
+		int loginByPhone(AdminAuthDataInfo info,out int result);
+	};
+};

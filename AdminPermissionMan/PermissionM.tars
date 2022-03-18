@@ -1,0 +1,57 @@
+module civetAdminCenter
+{
+	struct AdminRole
+	{
+		0 require  int id;
+		1 optional string roleName;
+		2 optional string name;
+		3 optional string created;
+		4 optional string updated;
+
+	};
+
+	struct AdminRoleHasPermission{
+		0 require int id;
+		1 optional int role_id;
+		2 optional int Permission_id;
+		3 optional int create_time;
+		4 optional int update_time;
+		5 optional string uni_id;
+	};
+	struct Permission{
+		0 require int id;
+		1 optional string tag;
+		2 optional string name;
+		3 optional string summarize;
+		4 optional string path;
+	};
+
+
+
+
+
+	interface PermissionM
+	{
+		int createRole(AdminRole newRole,out int c);
+		int deleteRole(int roleID,out int result);
+		int updateRole(AdminRole newRole,string keys,string value,out int result);
+		int queryRole(int offset,int limit,out vector<AdminRole> role,out int count,out int result);
+		int queryRoleByCondition(int offset,int limit,string keys,string value,out vector<AdminRole> role,out int result);
+
+		int bindRoleAndRights(AdminRoleHasPermission newRoleHasRight,out int result);
+		int unBindRoleAndRights(int RoleID,out int result);
+		int queryRolePermission(int offset,int limit,out vector<AdminRoleHasPermission> binds,out int count,out int result);
+		int queryRolePermissionByCondition(int offset,int limit,string keys,string value,out vector<AdminRoleHasPermission> binds,out int result);
+
+		int createPermission(Permission newCRight,out int c);
+		int deletePermission(int RightsID,out int result);
+		int updatePermission(Permission newCRight,string keys,string value,out int result);
+		int queryPermission(int offset,int limit,out vector<Permission> Rights,out int count,out int result);
+		int queryPermissionByCondition(int offset,int limit,string keys,string value,out vector<Permission> Rights,out int result);
+
+		int checkRoleHasPermissionByID(int roleID,int rightID,out int res);
+		int checkRoleHasPermissionByTag(int roleID,string rightsTag,out int result);
+		int checkRoleHasPermissionByPath(int roleID,string Path,out int result);
+		int queryRolehasPermission(int offset,int limit,int roleID,out vector<Permission> Rights,out int result);
+	};
+};

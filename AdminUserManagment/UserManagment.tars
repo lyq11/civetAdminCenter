@@ -1,0 +1,28 @@
+module civetAdminCenter
+{
+	struct AdminBasicInfo
+	{
+		0 require  int id;
+		1 optional string username;
+		2 optional string name;
+		3 optional string password;
+		4 optional string number;
+		5 optional string email;
+		6 optional string sex;
+		7 optional string enable;
+		8 optional int role;
+		9 optional long createTime;
+		10 optional long UpdateTime;
+	};
+
+	interface UserManagment
+	{
+		int adminAdd(AdminBasicInfo info,out int result); // 增加管理员
+		int adminEditPassWord(AdminBasicInfo info,out int result); // 修改管理员密码
+		int adminDelete(int id,out int result); // 删除管理员
+		int adminCheckPassword(AdminBasicInfo info,out bool result);
+		int adminUpdateByString(AdminBasicInfo info,string searchKey,string searchValue,out int result); // 修改管理员
+		int adminQueryAll(int numbers,int Pages,out vector<AdminBasicInfo> AdminMemberList,out int count, out int result);
+		int adminQueryByKeyWordStringList(string keyword,string stringWord,out vector<AdminBasicInfo> AdminMemberList, out int result);
+	};
+};
